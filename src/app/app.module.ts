@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HanoiCalcComponent } from './hanoi-calc/hanoi-calc.component';
 import { FormsModule } from '@angular/forms';
 
-
-
 @NgModule({
-  declarations: [],
+  declarations: [
+    AppComponent,
+    HanoiCalcComponent
+  ],
   imports: [
-    CommonModule,
+    BrowserModule,
+    AppRoutingModule,
     FormsModule
-  ]
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class MamaModule { }
+export class AppModule { }

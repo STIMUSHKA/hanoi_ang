@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Цвет фона */
+  }
+  
+  input, button {
+    margin: 10px 0;
+    padding: 8px; /* Добавим отступ внутри элементов */
+  }
+  
+  button {
+    background-color: #4caf50; /* Цвет кнопки */
+    color: white; /* Цвет текста на кнопке */
+    border: none; /* Уберем рамку */
+    cursor: pointer;
+  }
+  
+  .result {
+    margin-top: 20px;
+    font-weight: bold;
+    background-color: #dff0d8; /* Цвет фона для результата */
+    padding: 10px; /* Добавим отступ внутри результата */
+  }
+  
