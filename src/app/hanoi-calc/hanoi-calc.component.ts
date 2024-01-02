@@ -11,7 +11,7 @@ export class HanoiCalcComponent {
   public result: any
   public inputData: number = 0;
   public time: number = 0;
-  private moves: string[] = [];
+  public moves: string[] = [];
 
   public start() {
     this.moves = []

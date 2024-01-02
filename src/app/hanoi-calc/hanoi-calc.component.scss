@@ -2,27 +2,44 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100vh;
-    background-color: #f0f0f0; /* Цвет фона */
+    background-color: #f0f0f0;
   }
   
-  input, button {
+  input,
+  button {
     margin: 10px 0;
-    padding: 8px; /* Добавим отступ внутри элементов */
+    padding: 8px;
   }
   
   button {
-    background-color: #4caf50; /* Цвет кнопки */
-    color: white; /* Цвет текста на кнопке */
-    border: none; /* Уберем рамку */
+    background-color: #4caf50;
+    color: white;
+    border: none;
     cursor: pointer;
   }
   
   .result {
     margin-top: 20px;
     font-weight: bold;
-    background-color: #dff0d8; /* Цвет фона для результата */
-    padding: 10px; /* Добавим отступ внутри результата */
+    background-color: #dff0d8;
+    padding: 10px;
+  }
+  
+  .moves {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto; /* Add a vertical scrollbar when content overflows */
+    max-height: calc(100vh - 150px); /* Adjust the max height based on your layout */
+  }
+  
+  .move {
+    padding: 2px 4px;
+    margin: 2px 4px;
+    background-color: #4caf50;
+    border-radius: 2px;
+    color: #dff0d8;
   }
   
