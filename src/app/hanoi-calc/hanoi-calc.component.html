@@ -1,18 +1,16 @@
 <div class="container">
   <h1>Привет!</h1>
-  <br>
-  <input [(ngModel)]="inputData" name="inputData" type="number" placeholder="Введите данные">
-  <br>
+  <input [(ngModel)]="inputData" name="inputData" type="number" placeholder="Введите данные" [defaultValue]="3">
   <button (click)="start()">Го уебём тебе комп</button>
-  <br>
   <div *ngIf="result > 0" class="result">
     Круто, уебали тебе комп за {{ time | number: '1.2-2' }} секунд!
     <br>
     В итоге тыкнули в жопу {{ result }} раз
   </div>
-  <div class="moves">
+  <app-hanoi-vizual [diskCount]="this.inputData" [moves]="this.moves"></app-hanoi-vizual>
+  <!-- <div class="moves">
     <span *ngFor="let move of moves" class="move">
       {{move}}
     </span>
-  </div>
+  </div> -->
 </div>

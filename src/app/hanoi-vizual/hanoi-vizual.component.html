@@ -1,0 +1,11 @@
+<div>
+    <app-tower [ngStyle]="{ 'width.px': width, 'height.px': height }" class="tower">
+      <app-disk *ngFor="let disk of tower1" [width]="disk"></app-disk>
+    </app-tower>
+    <app-tower [ngStyle]="{ 'width.px': width, 'height.px': height }" class="tower">
+      <app-disk *ngFor="let disk of tower2" [width]="disk"></app-disk>
+    </app-tower>
+    <app-tower [ngStyle]="{ 'width.px': width, 'height.px': height }" class="tower">
+      <app-disk *ngFor="let disk of tower3" [width]="disk"></app-disk>
+    </app-tower>
+</div>

@@ -11,7 +11,7 @@ export class HanoiCalcComponent {
   public result: any
   public inputData: number = 0;
   public time: number = 0;
-  public moves: string[] = [];
+  public moves: any[] = [];
 
   public start() {
     this.moves = []
@@ -24,7 +24,7 @@ export class HanoiCalcComponent {
   }
 
   private move(s: number, e: number) {
-      this.moves.push( s +  '->' +  e);
+      this.moves.push( [s, e]);
   }
 
   private h(n: number, start: number, end: number) {
