@@ -1,4 +1,3 @@
-User
 // hanoi-vizual.component.ts
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 
