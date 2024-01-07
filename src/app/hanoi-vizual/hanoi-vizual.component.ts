@@ -14,9 +14,8 @@ export class HanoiVizualComponent implements OnInit {
   public tower3: string[] = [];
   public width: number = 100;
   public height: number = 200;
-  private stopExecution = false;
-
-
+  private currentTry: number = 0;
+  private tryesArray: boolean[] = [false]
   
   ngOnInit() {
     this.resetTowers();
@@ -24,9 +23,11 @@ export class HanoiVizualComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log(123);
+    this.tryesArray.push(true)
+    this.tryesArray[this.currentTry] = false
+    console.log(false);
     
-    this.stopExecution = true;
-
+    this.currentTry ++;
     this.resetTowers();
     console.log(this.tower1, this.tower2, this.tower3);
     
@@ -35,7 +36,7 @@ export class HanoiVizualComponent implements OnInit {
 
     if ('moves' in changes && !changes['moves'].firstChange) {
       // moves изменился и это не первая инициализация
-      this.solve();
+      this.solve(this.currentTry);
     }
 
   }
@@ -46,28 +47,27 @@ export class HanoiVizualComponent implements OnInit {
     this.tower3 = [];
   }
 
-  solve() {
+  solve(currentTry: number) {
     this.resetTowers();
-    this.executeMoves();
+    this.executeMoves(currentTry);
   }
 
-  async executeMoves() {
-    this.stopExecution = false;
+  async executeMoves(currentTry: number) {
     for (const move of this.moves) {
-      if (this.stopExecution) {
-        break; 
+      if(!this.tryesArray[currentTry]) {
+        break;
       }
       const [from, to] = move;
-      if (this.stopExecution) {
-        break; 
+      if(!this.tryesArray[currentTry]) {
+        break;
       }
       await this.delay(1);
-      if (this.stopExecution) {
-        break; 
+      if(!this.tryesArray[currentTry]) {
+        break;
       }
       this.moveDisk(from, to);
-      if (this.stopExecution) {
-        break; 
+      if(!this.tryesArray[currentTry]) {
+        break;
       }
     }
   }
