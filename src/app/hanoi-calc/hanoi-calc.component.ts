@@ -9,7 +9,7 @@ export class HanoiCalcComponent {
 
   public title = 'hanoi';
   public result: any
-  public inputData: number = 0;
+  public inputData: number = 3;
   public time: number = 0;
   public moves: any[] = [];
 
