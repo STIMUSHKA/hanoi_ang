@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HanoiCalcComponent } from './hanoi-calc/hanoi-calc.component';
 
 const routes: Routes = [
-  { path: '', component: HanoiCalcComponent}
+  { path: 'hanoi', component: HanoiCalcComponent},
 ];
 
 @NgModule({

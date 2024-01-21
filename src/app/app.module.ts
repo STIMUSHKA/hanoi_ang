@@ -7,6 +7,7 @@ import { HanoiCalcComponent } from './hanoi-calc/hanoi-calc.component';
 import { FormsModule } from '@angular/forms';
 import { HanoiVizualComponent } from './hanoi-vizual/hanoi-vizual.component';
 import { DiskComponent, TowerComponent } from './hanoi-solver/hanoi-solver.component';
+import { EngineModule } from './engine/engine.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DiskComponent, TowerComponent } from './hanoi-solver/hanoi-solver.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    EngineModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
