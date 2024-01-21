@@ -13,7 +13,7 @@ export class EngineComponent {
   public fps!: number;
 
   private ctx: CanvasRenderingContext2D | null = null;
-  private balls: { x: number; y: number; dx: number; dy: number; radius: number; color: string; }[] = []
+  private balls: { x: number; y: number; dx: number; dy: number; radius: number; color: string; mass: number; }[] = []
   private actualBallSize: number = Math.pow(10, this.ballSize / 10);;
   private actualBallSpeed: number = Math.pow(10, this.ballSpeed / 10);
   private lastFrameTime!: number;
@@ -49,6 +49,7 @@ export class EngineComponent {
       dx: (Math.random() - 0.5) * 0.2 * this.actualBallSpeed,
       dy: (Math.random() - 0.5) * 0.2 * this.actualBallSpeed,
       radius,
+      mass: radius*radius*3.14,
       color: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`
     };
   
@@ -98,9 +99,6 @@ export class EngineComponent {
   
       requestAnimationFrame(() => this.animate());
     }
-
-    console.log('FPS:', this.fps);
-
   }
 
   drawBall(ball: any): void {
@@ -136,7 +134,7 @@ export class EngineComponent {
         const distance = Math.sqrt((ball.x - otherBall.x) ** 2 + (ball.y - otherBall.y) ** 2);
   
         // Если расстояние между центрами шариков меньше суммы их радиусов, то произошло столкновение
-        if (distance < ball.radius + otherBall.radius) {
+        if (distance < ball.radius + otherBall.radius - 1) {
           // Обработка столкновения (например, обмен скоростями)
           this.handleCollision(ball, otherBall);
         }
@@ -145,29 +143,51 @@ export class EngineComponent {
   }
   
   handleCollision(ballA: any, ballB: any): void {
-    // Обмен скоростями (просто для примера, реализация может быть более сложной)
-    const tempDx = ballA.dx;
-    const tempDy = ballA.dy;
-    ballA.dx = ballB.dx;
-    ballA.dy = ballB.dy;
-    ballB.dx = tempDx;
-    ballB.dy = tempDy;
-  
+    // Расчет вектора от шара A к шару B
+    const collisionVectorX = ballB.x - ballA.x;
+    const collisionVectorY = ballB.y - ballA.y;
+
+    // Нормализация вектора
+    const collisionVectorLength = Math.sqrt(collisionVectorX ** 2 + collisionVectorY ** 2);
+    const collisionVectorNormalizedX = collisionVectorX / collisionVectorLength;
+    const collisionVectorNormalizedY = collisionVectorY / collisionVectorLength;
+
+    // Расчет относительной скорости
+    const relativeVelocityX = ballB.dx - ballA.dx;
+    const relativeVelocityY = ballB.dy - ballA.dy;
+
+    // Расчет проекции относительной скорости на вектор столкновения
+    const velocityAlongCollision = relativeVelocityX * collisionVectorNormalizedX + relativeVelocityY * collisionVectorNormalizedY;
+
+    // Расчет массы и импульса
+    const reducedMass = (ballA.mass * ballB.mass) / (ballA.mass + ballB.mass);
+    const impulse = 2 * velocityAlongCollision * reducedMass;
+
+    // Применение новых скоростей
+    ballA.dx += impulse * collisionVectorNormalizedX / ballA.mass;
+    ballA.dy += impulse * collisionVectorNormalizedY / ballA.mass;
+    ballB.dx -= impulse * collisionVectorNormalizedX / ballB.mass;
+    ballB.dy -= impulse * collisionVectorNormalizedY / ballB.mass;
+
     // Перемещение шаров, чтобы они не слипались друг с другом
-    const overlap = ballA.radius + ballB.radius - Math.sqrt((ballA.x - ballB.x) ** 2 + (ballA.y - ballB.y) ** 2);
-    const angle = Math.atan2(ballB.y - ballA.y, ballB.x - ballA.x);
-    const moveX = overlap * Math.cos(angle) / 2;
-    const moveY = overlap * Math.sin(angle) / 2;
-  
+    const overlap = ballA.radius + ballB.radius - collisionVectorLength;
+    const moveX = overlap * collisionVectorNormalizedX / 2;
+    const moveY = overlap * collisionVectorNormalizedY / 2;
+
     ballA.x -= moveX;
     ballA.y -= moveY;
     ballB.x += moveX;
     ballB.y += moveY;
-  
+
     // Проверка и коррекция, чтобы шары оставались в пределах экрана
     this.checkBoundaryCollision(ballA);
     this.checkBoundaryCollision(ballB);
-  }
+}
+
+
+
+
+
   
   checkBoundaryCollision(ball: any): void {
     if (ball.x - ball.radius < 0) {
