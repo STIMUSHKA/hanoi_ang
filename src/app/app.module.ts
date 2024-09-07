@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { HanoiVizualComponent } from './hanoi-vizual/hanoi-vizual.component';
 import { DiskComponent, TowerComponent } from './hanoi-solver/hanoi-solver.component';
 import { EngineModule } from './engine/engine.module';
+import { BattleModule } from './battle-royale/battle.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { EngineModule } from './engine/engine.module';
     AppRoutingModule,
     FormsModule,
     EngineModule,
+    BattleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

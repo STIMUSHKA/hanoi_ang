@@ -1,0 +1,19 @@
+<div class="body">
+    <div id="controls">
+        FPS: {{fps | number: '1.0-0'}}
+        <label for="ballCount">Количество шаров: {{ballCount}}</label>
+        <input type="range" id="ballCount" [(ngModel)]="ballCount" min="1" max="100" />
+      
+        <label for="ballSize">Размер шаров (коэффициент): {{ballSize}}</label>
+        <input type="range" id="ballSize" [(ngModel)]="ballSize" min="1" max="20" />
+      
+        <label for="ballSpeed">Скорость шаров (коэффициент): {{ballSpeed}}</label>
+        <input type="range" id="ballSpeed" [(ngModel)]="ballSpeed" min="1" max="20" />
+
+        <label for="ballHp">HP шаров: {{hp}}</label>
+        <input type="range" id="ballHp" [(ngModel)]="hp" min="1" max="100" />
+      
+        <button (click)="setup()">Применить</button>
+      </div>
+    <canvas #ballCanvas width="800" height="600" (mousemove)="onMouseMove($event)"></canvas>
+</div>
